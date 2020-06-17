@@ -1,0 +1,197 @@
+# write your code here
+class Winliao(Exception): pass
+arr = list("         ")
+
+def layout():
+    layout = f"""----------
+| {arr[0]} {arr[1]} {arr[2]} |
+| {arr[3]} {arr[4]} {arr[5]} |
+| {arr[6]} {arr[7]} {arr[8]} |
+----------"""
+    print(layout)
+
+
+def Checkwin():
+    matrix = [[arr[0], arr[1], arr[2]], [arr[3], arr[4], arr[5]], [arr[6], arr[7], arr[8]]]
+    xwin = False
+    owin = False
+
+    winner = False
+    #check rows
+    for x in range(3):
+        Xchecked = 0
+        Ochecked = 0
+        for column in range(3):
+            if matrix[x][column] == "X":
+                Xchecked += 1
+            elif matrix[x][column] == "O":
+                Ochecked += 1
+        if Xchecked == 3:
+            xwin = True
+        if Ochecked == 3:
+            owin = True
+    #check columns
+    for x in range(3):
+        Xchecked = 0
+        Ochecked = 0
+        for column in range(3):
+            if matrix[column][x] == "X":
+                Xchecked += 1
+            elif matrix[column][x] == "O":
+                Ochecked += 1
+        if Xchecked == 3:
+            xwin = True
+        if Ochecked == 3:
+            owin = True
+    Xchecked = 0
+    Ochecked = 0
+    for x in range(3):
+
+        if matrix[x][x] == "X":
+            Xchecked += 1
+        elif matrix[x][x] == "O":
+            Ochecked += 1
+    if Xchecked == 3:
+        xwin = True
+    if Ochecked == 3:
+        owin = True
+    Xchecked = 0
+    Ochecked = 0
+    for x in range(3):
+
+        if matrix[x][2 - x] == "X":
+            Xchecked += 1
+        elif matrix[x][2 - x] == "O":
+            Ochecked += 1
+
+    if Xchecked == 3:
+        xwin = True
+    if Ochecked == 3:
+        owin = True
+
+    if xwin:
+        print("X wins")
+        raise Winliao
+
+    elif owin:
+        print("O wins")
+        raise Winliao
+
+    if not owin and not xwin:
+        if " " not in arr:
+            print("Draw")
+            raise Winliao
+
+        elif " " in arr:
+            pass
+
+
+
+layout()
+goon = True
+count = 0
+try:
+    while goon:
+
+        if count % 2 == 0:
+            turn = "X"
+        else:
+            turn = "O"
+        coord = input("Please enter the coordinates: ")
+        coords = coord.split(" ")
+
+        for n in coords:
+            try:
+                m = int(n)
+                if m < 1 or m > 3:
+                    print("Coordinates should be from 1 to 3!")
+                    break
+
+            except:
+                print("You should enter numbers!")
+                break
+        else:
+            if coords[0] == "1":
+                if coords[1] == "1":
+                    if arr[6] != " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[6] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+
+                if coords[1] == "2":
+                    if arr[3]!= " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[3] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+
+                if coords[1] == "3":
+                    if arr[0] != " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[0] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+
+            if coords[0] == "2":
+                if coords[1] == "1":
+                    if arr[7] != " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[7] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+                if coords[1] == "2":
+                    if arr[4] != " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[4] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+
+                if coords[1] == "3":
+                    if arr[1] != " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[1] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+
+            if coords[0] == "3":
+                if coords[1] == "1":
+                    if arr[8] != " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[8] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+
+                if coords[1] == "2":
+                    if arr[5] != " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[5] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+
+                if coords[1] == "3":
+                    if arr[2] != " ":
+                        print("This cell is occupied! Choose another one!")
+                    else:
+                        arr[2] = turn
+                        count += 1
+                        layout()
+                        Checkwin()
+except Winliao:
+    pass
